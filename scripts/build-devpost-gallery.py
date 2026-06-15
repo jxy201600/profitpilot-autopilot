@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "out" / "submission" / "gallery"
+SUBMISSION_OUT = ROOT / "out" / "submission"
 W, H = 1200, 800
 
 
@@ -172,6 +173,47 @@ def image_architecture(_data):
     return img
 
 
+def image_full_architecture(_data):
+    img, draw = base(
+        "System Architecture",
+        "Qwen Cloud connects to the Node.js backend, local web UI, generated artifacts, and optional downstream business tools.",
+    )
+    zones = [
+        ("Frontend", (60, 305, 300, 560), (19, 142, 158)),
+        ("Backend", (345, 305, 610, 560), (104, 68, 198)),
+        ("Qwen Cloud", (665, 305, 930, 560), (19, 142, 158)),
+        ("Artifacts", (980, 305, 1140, 560), (104, 68, 198)),
+    ]
+    for label, box, accent in zones:
+        card(draw, box, label, None, accent=accent)
+
+    write_wrapped(draw, (90, 390), "Web demo\nCLI runner\nSample inquiry", (23, 32, 51), FONT_BODY_BOLD, 170, max_lines=4)
+    write_wrapped(draw, (375, 390), "Node.js API\nOrchestrator\nSchema normalizer\nCompliance gate", (23, 32, 51), FONT_BODY_BOLD, 210, max_lines=5)
+    write_wrapped(draw, (695, 390), "DashScope endpoint\nOpenAI-compatible chat\nJSON workflow plan", (23, 32, 51), FONT_BODY_BOLD, 200, max_lines=5)
+    write_wrapped(draw, (1010, 390), "Quote\nReply\nJSON\nDocs", (23, 32, 51), FONT_BODY_BOLD, 110, max_lines=5)
+
+    arrows = [
+        (300, 432, 345, 432),
+        (610, 432, 665, 432),
+        (665, 472, 610, 472),
+        (930, 432, 980, 432),
+    ]
+    for x1, y1, x2, y2 in arrows:
+        draw.line((x1, y1, x2, y2), fill=(224, 235, 248), width=5)
+        if x2 > x1:
+            draw.polygon([(x2, y2), (x2 - 14, y2 - 8), (x2 - 14, y2 + 8)], fill=(224, 235, 248))
+        else:
+            draw.polygon([(x2, y2), (x2 + 14, y2 - 8), (x2 + 14, y2 + 8)], fill=(224, 235, 248))
+
+    wide_note(
+        draw,
+        (70, 620, 1130, 730),
+        "Deployment Boundary",
+        "Runs as a Node.js backend on Alibaba Cloud ECS. Secrets stay in environment variables; generated packets act as the lightweight data store for judging.",
+    )
+    return img
+
+
 def image_evidence(data):
     mode = data.get("mode", "qwen-cloud")
     img, draw = base(
@@ -210,6 +252,9 @@ def main():
         path = OUT / name
         img.save(path, "PNG", optimize=True)
         result.append({"path": str(path), "bytes": path.stat().st_size, "size": [W, H]})
+    architecture_path = SUBMISSION_OUT / "architecture-diagram.png"
+    image_full_architecture(data).save(architecture_path, "PNG", optimize=True)
+    result.append({"path": str(architecture_path), "bytes": architecture_path.stat().st_size, "size": [W, H]})
     print(json.dumps({"ok": True, "galleryDir": str(OUT), "images": result}, indent=2))
 
 
