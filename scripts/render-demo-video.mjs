@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
 import { rootDir, getConfig } from "../src/config.mjs";
 import { runProfitPilot } from "../src/workflow.mjs";
@@ -16,15 +16,24 @@ function firstExisting(candidates) {
   return candidates.filter(Boolean).find((candidate) => fs.existsSync(candidate)) || "";
 }
 
+function findOnPath(command) {
+  const isWindows = process.platform === "win32";
+  const locator = isWindows ? "where.exe" : "command";
+  const args = isWindows ? [command] : ["-v", command];
+  const result = spawnSync(locator, args, { encoding: "utf8", windowsHide: true });
+  if (result.status !== 0) return "";
+  const found = String(result.stdout || "").split(/\r?\n/).map((line) => line.trim()).filter(Boolean)[0] || "";
+  if (/\\WindowsApps\\python(?:\.exe)?$/i.test(found)) return "";
+  return found;
+}
+
 function findPython() {
-  const bundledPython = process.env.USERPROFILE
-    ? path.join(process.env.USERPROFILE, ".cache", "codex-runtimes", "codex-primary-runtime", "dependencies", "python", "python.exe")
-    : "";
   return firstExisting([
     process.env.PYTHON_PATH,
-    bundledPython,
-    "python.exe",
-    "python",
+    findOnPath("python.exe"),
+    findOnPath("python"),
+    findOnPath("py.exe"),
+    findOnPath("py"),
   ]);
 }
 
