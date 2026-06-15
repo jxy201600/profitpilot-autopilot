@@ -25,6 +25,8 @@ const requiredFiles = [
   "docs/official-submission-requirements.md",
   "docs/qwen-cloud-live-setup.md",
   "docs/technical-depth-evidence.md",
+  "docs/evidence/deployment-proof.md",
+  "docs/evidence/qwen-live-proof.md",
   "docs/winning-submission-plan.md",
   "scripts/check-live-config.mjs",
   "scripts/export-live-proof.mjs",
@@ -50,6 +52,8 @@ const winningPlan = read("docs/winning-submission-plan.md");
 const liveSetup = read("docs/qwen-cloud-live-setup.md");
 const officialRequirements = read("docs/official-submission-requirements.md");
 const technicalDepth = read("docs/technical-depth-evidence.md");
+const publicDeploymentProof = read("docs/evidence/deployment-proof.md");
+const publicLiveProof = read("docs/evidence/qwen-live-proof.md");
 const privateToolPattern = new RegExp(`${["co", "dex"].join("")}|${["chat", "gpt"].join("")}|claude\\s+code`, "i");
 const publicScanFiles = [
   ...requiredFiles,
@@ -84,6 +88,13 @@ const checks = [
   { name: "deterministic-demo", ok: /deterministic demo/i.test(readme) && /deterministic-demo/.test(read("src/workflow.mjs")) },
   { name: "compliance-gate", ok: /restricted/i.test(read("src/compliance.mjs")) && /compliance|safety/i.test(read("docs/demo-video-script.md")) },
   { name: "payment-gate", ok: /payment/i.test(readme) && /payment/i.test(read("src/workflow.mjs")) },
+  {
+    name: "public-evidence",
+    ok: /Deployment Proof/.test(publicDeploymentProof) &&
+      /Qwen Cloud Live Proof/.test(publicLiveProof) &&
+      /without exposing/.test(publicLiveProof) &&
+      !/Hostname:/i.test(publicDeploymentProof),
+  },
   {
     name: "technical-depth-evidence",
     ok: /Qwen Cloud Integration/.test(technicalDepth) &&
