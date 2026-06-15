@@ -23,6 +23,7 @@ const requiredFiles = [
   "docs/final-submission-checklist.md",
   "docs/judging-scorecard.md",
   "docs/winning-submission-plan.md",
+  "scripts/check-live-config.mjs",
 ];
 
 function read(file) {
@@ -61,7 +62,7 @@ const checks = [
       /human checkpoint/i.test(winningPlan),
   },
   { name: "ci-validate", ok: /npm run validate/.test(read(".github/workflows/ci.yml")) },
-  { name: "package-scripts", ok: ["check", "test", "demo", "demo:zh", "score", "validate", "live:smoke", "start"].every((script) => packageJson.scripts?.[script]) },
+  { name: "package-scripts", ok: ["check", "test", "demo", "demo:zh", "score", "validate", "live:config", "live:smoke", "start"].every((script) => packageJson.scripts?.[script]) },
   {
     name: "submission-assets",
     ok: fs.existsSync(path.join(rootDir, "out", "submission", "SUBMISSION_BUNDLE.md")) &&
