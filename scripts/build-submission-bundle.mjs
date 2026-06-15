@@ -33,6 +33,10 @@ Use docs/official-submission-requirements.md as the final deliverable checklist.
 - Markdown: docs/architecture.md
 - Diagram: docs/architecture.svg
 
+## Technical Depth Evidence
+
+${read("docs/technical-depth-evidence.md")}
+
 ## Demo Video
 
 Use docs/demo-video-script.md.
