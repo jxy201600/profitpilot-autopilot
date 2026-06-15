@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">ProfitPilot Autopilot Architecture</title>
+  <desc id="desc">Qwen Cloud powered inquiry to quote workflow with compliance, payment, and delivery gates.</desc>
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f7b8a"/>
+      <stop offset="1" stop-color="#6844c6"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#203040" flood-opacity=".18"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#435066"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="760" fill="#f5f8fb"/>
+  <text x="70" y="74" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="36" font-weight="800" fill="#172033">ProfitPilot Autopilot</text>
+  <text x="70" y="108" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#5c667a">Qwen Cloud powered small-business inquiry-to-quote workflow</text>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" fill="#172033">
+    <g filter="url(#shadow)">
+      <rect x="70" y="170" width="220" height="104" rx="10" fill="#fff" stroke="#d9e2ef"/>
+      <text x="96" y="210" font-weight="800">Customer Inquiry</text>
+      <text x="96" y="240" fill="#5c667a">Email, form, chat text</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="370" y="150" width="250" height="144" rx="10" fill="#fff" stroke="#d9e2ef"/>
+      <text x="396" y="190" font-weight="800">Workflow Orchestrator</text>
+      <text x="396" y="220" fill="#5c667a">Intake, schema, state</text>
+      <text x="396" y="248" fill="#5c667a">Deterministic fallback</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="700" y="150" width="220" height="144" rx="10" fill="url(#g1)"/>
+      <text x="730" y="190" font-weight="800" fill="#fff">Qwen Cloud</text>
+      <text x="730" y="220" fill="#edf7ff">OpenAI-compatible</text>
+      <text x="730" y="248" fill="#edf7ff">JSON workflow plan</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="990" y="150" width="220" height="144" rx="10" fill="#fff" stroke="#d9e2ef"/>
+      <text x="1018" y="190" font-weight="800">Compliance Gate</text>
+      <text x="1018" y="220" fill="#5c667a">Restricted blocks</text>
+      <text x="1018" y="248" fill="#5c667a">Human review cues</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="145" y="430" width="230" height="128" rx="10" fill="#fff" stroke="#d9e2ef"/>
+      <text x="175" y="470" font-weight="800">Quote Packet</text>
+      <text x="175" y="500" fill="#5c667a">Scope, price, ETA</text>
+      <text x="175" y="528" fill="#5c667a">Missing inputs</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="450" y="430" width="230" height="128" rx="10" fill="#fff" stroke="#d9e2ef"/>
+      <text x="480" y="470" font-weight="800">Customer Reply</text>
+      <text x="480" y="500" fill="#5c667a">Chinese / English</text>
+      <text x="480" y="528" fill="#5c667a">Ready to send</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="755" y="430" width="230" height="128" rx="10" fill="#fff" stroke="#d9e2ef"/>
+      <text x="785" y="470" font-weight="800">Payment Gate</text>
+      <text x="785" y="500" fill="#5c667a">Manual confirmation</text>
+      <text x="785" y="528" fill="#5c667a">No false paid state</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="1030" y="430" width="210" height="128" rx="10" fill="#fff" stroke="#d9e2ef"/>
+      <text x="1060" y="470" font-weight="800">Delivery Preview</text>
+      <text x="1060" y="500" fill="#5c667a">Files, checklist</text>
+      <text x="1060" y="528" fill="#5c667a">Release after pay</text>
+    </g>
+  </g>
+  <g stroke="#435066" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+    <path d="M290 222 C320 222 340 222 370 222"/>
+    <path d="M620 222 C650 222 670 222 700 222"/>
+    <path d="M920 222 C950 222 960 222 990 222"/>
+    <path d="M495 294 C450 350 340 380 260 430"/>
+    <path d="M530 294 C540 350 550 380 565 430"/>
+    <path d="M565 294 C670 350 770 380 870 430"/>
+    <path d="M604 294 C760 358 956 384 1135 430"/>
+  </g>
+  <rect x="70" y="640" width="1140" height="54" rx="10" fill="#e9f2f6" stroke="#d9e2ef"/>
+  <text x="96" y="674" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" fill="#172033">Safety invariant: model output can draft business artifacts, but payment confirmation, restricted topics, and external posting remain gated.</text>
+</svg>
