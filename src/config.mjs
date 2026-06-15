@@ -38,6 +38,7 @@ export function getConfig() {
       apiKey: env.DASHSCOPE_API_KEY || "",
       model: env.QWEN_MODEL || "qwen3.7-plus",
       baseUrl: env.QWEN_BASE_URL || "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+      timeoutMs: int(env.QWEN_TIMEOUT_MS, 45000),
     },
     paymentMethod: env.PUBLIC_PAYMENT_METHOD || "manual-alipay",
   };
