@@ -36,6 +36,18 @@ const fields = {
     "The agent ingests an inquiry, classifies the business context, applies a compliance gate, generates a scoped quote, drafts a customer response, identifies missing inputs, creates an order draft, and lists delivery files that should be released only after payment confirmation.",
   howItUsesQwenCloud:
     "Live mode uses Qwen Cloud's OpenAI-compatible chat completion endpoint with JSON output. The deterministic fallback keeps tests and demos reliable without secrets while preserving the same schema, normalization layer, tool plan, and workflow gates.",
+  inspiration:
+    "Small businesses often receive vague inquiries across email, forms, and chat, then spend too much time turning them into quotes, follow-ups, payment checks, and delivery tasks. The project was built to show how Qwen Cloud can act as a practical workflow autopilot for this messy revenue operation, not just as a conversational demo.",
+  howWeBuiltIt:
+    "We built a Node.js agent with a bounded Qwen Cloud adapter, a strict JSON workflow contract, deterministic fallback mode for repeatable judging, and a web and CLI interface. The workflow separates model reasoning from operational gates: compliance, quote generation, customer reply drafting, missing-input collection, payment checkpointing, and delivery packaging.",
+  challenges:
+    "The hardest part was making the agent useful while keeping it safe and reproducible. We added schema normalization for model output drift, explicit restricted-topic handling, payment and delivery checkpoints, timeout controls, live smoke evidence, and a deterministic mode so judges can run the same flow without exposing secrets.",
+  accomplishments:
+    "The project produces real business artifacts instead of a chat transcript: a quote packet, customer reply, missing-input checklist, order draft, tool plan, payment gate, delivery preview, JSON result, validation report, Qwen Cloud live proof, and Alibaba Cloud deployment proof.",
+  whatWeLearned:
+    "A strong business autopilot needs clear boundaries as much as intelligence. Qwen Cloud is most valuable when its output is constrained by a contract, checked by deterministic guardrails, and connected to a practical workflow that a small operator can understand and verify.",
+  whatsNext:
+    "Next steps are spreadsheet export, email draft handoff, CRM adapters, multilingual templates, richer audit logs, and optional human approval queues for payment, regulated requests, and final delivery release.",
   technicalDepth:
     "The implementation includes a bounded Qwen Cloud adapter, structured JSON contract, output normalization, explicit tool-plan boundaries, compliance gates, payment and external-posting checkpoints, CLI and web demos, unit tests, live smoke proof, deployment proof, and generated submission assets.",
   builtWith: [
@@ -105,6 +117,24 @@ ${fields.whatItDoes}
 
 ## How It Uses Qwen Cloud
 ${fields.howItUsesQwenCloud}
+
+## Project Story: Inspiration
+${fields.inspiration}
+
+## Project Story: How We Built It
+${fields.howWeBuiltIt}
+
+## Project Story: Challenges We Ran Into
+${fields.challenges}
+
+## Project Story: Accomplishments
+${fields.accomplishments}
+
+## Project Story: What We Learned
+${fields.whatWeLearned}
+
+## Project Story: What's Next
+${fields.whatsNext}
 
 ## Technical Depth
 ${fields.technicalDepth}
