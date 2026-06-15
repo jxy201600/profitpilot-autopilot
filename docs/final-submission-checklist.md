@@ -20,6 +20,8 @@
 - [ ] `npm run score` shows a strong scorecard.
 - [ ] `npm run validate` passes.
 - [ ] `npm run live:smoke` passes or safely skips when the key is intentionally absent.
+- [ ] `npm run deployment:proof` generated deployment proof.
+- [ ] `npm run submission:bundle` generated a single Devpost copy source.
 - [ ] Restricted request demo shows compliance block.
 - [ ] Chinese and English workflow shown in materials.
 
