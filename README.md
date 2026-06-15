@@ -34,6 +34,7 @@ npm run deployment:proof
 npm run submission:bundle
 npm run devpost:fields
 npm run demo:storyboard
+npm run demo:video
 ```
 
 Then open `http://127.0.0.1:8787`.
@@ -65,6 +66,7 @@ Check the live configuration without printing secrets:
 ```bash
 npm run live:config
 npm run live:smoke
+npm run live:proof
 ```
 
 For region matching and final live proof, see [docs/qwen-cloud-live-setup.md](docs/qwen-cloud-live-setup.md).
