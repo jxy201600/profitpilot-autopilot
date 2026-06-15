@@ -28,6 +28,7 @@
 - [ ] `npm run demo:zh` passes.
 - [ ] `npm run score` shows a strong scorecard.
 - [ ] `npm run validate` passes.
+- [ ] Public files and generated submission copy contain no private development tooling traces.
 - [ ] `npm run live:smoke` passes or safely skips when the key is intentionally absent.
 - [ ] `npm run deployment:proof` generated deployment proof.
 - [ ] `npm run submission:bundle` generated a single Devpost copy source.
