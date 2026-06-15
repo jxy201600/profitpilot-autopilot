@@ -32,6 +32,8 @@ Submission helpers:
 ```bash
 npm run deployment:proof
 npm run submission:bundle
+npm run devpost:fields
+npm run demo:storyboard
 ```
 
 Then open `http://127.0.0.1:8787`.
