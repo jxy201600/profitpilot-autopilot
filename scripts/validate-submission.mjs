@@ -30,6 +30,7 @@ const requiredFiles = [
   "docs/winning-submission-plan.md",
   "scripts/check-live-config.mjs",
   "scripts/export-live-proof.mjs",
+  "scripts/build-devpost-helper.mjs",
   "scripts/render-demo-video.mjs",
   "scripts/render_demo_slides.py",
 ];
@@ -54,12 +55,16 @@ const officialRequirements = read("docs/official-submission-requirements.md");
 const technicalDepth = read("docs/technical-depth-evidence.md");
 const publicDeploymentProof = read("docs/evidence/deployment-proof.md");
 const publicLiveProof = read("docs/evidence/qwen-live-proof.md");
+const helperHtml = exists("out/submission/devpost-submit-helper.html")
+  ? read("out/submission/devpost-submit-helper.html")
+  : "";
 const privateToolPattern = new RegExp(`${["co", "dex"].join("")}|${["chat", "gpt"].join("")}|claude\\s+code`, "i");
 const publicScanFiles = [
   ...requiredFiles,
   "out/submission/SUBMISSION_BUNDLE.md",
   "out/submission/devpost-fields.md",
   "out/submission/devpost-fields.json",
+  "out/submission/devpost-submit-helper.html",
 ].filter(exists);
 const privateToolHits = publicScanFiles.filter((file) => privateToolPattern.test(read(file)));
 
@@ -124,8 +129,18 @@ const checks = [
     name: "submission-assets",
     ok: fs.existsSync(path.join(rootDir, "out", "submission", "SUBMISSION_BUNDLE.md")) &&
       fs.existsSync(path.join(rootDir, "out", "submission", "devpost-fields.json")) &&
+      fs.existsSync(path.join(rootDir, "out", "submission", "devpost-submit-helper.html")) &&
       fs.existsSync(path.join(rootDir, "out", "deployment-proof", "deployment-proof.md")) &&
       fs.existsSync(path.join(rootDir, "out", "demo-capture", "storyboard.html")),
+  },
+  {
+    name: "devpost-helper-content",
+    ok: /Basic Fields/.test(helperHtml) &&
+      /Project Story/.test(helperHtml) &&
+      /Technical Evidence/.test(helperHtml) &&
+      /devpost\.com\/submit-to\/29966/.test(helperHtml) &&
+      /qwen-hackathon-finalize/.test(helperHtml) &&
+      /data-copy=/.test(helperHtml),
   },
 ];
 
