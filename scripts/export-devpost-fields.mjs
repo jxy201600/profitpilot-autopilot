@@ -3,6 +3,21 @@ import path from "node:path";
 import { rootDir } from "../src/config.mjs";
 
 const repoUrl = process.env.QWEN_HACKATHON_REPO_URL || "https://github.com/jxy201600/profitpilot-autopilot";
+const parentRootDir = path.resolve(rootDir, "..", "..", "..");
+function loadEnv(file) {
+  const env = {};
+  if (!fs.existsSync(file)) return env;
+  for (const line of fs.readFileSync(file, "utf8").split(/\r?\n/)) {
+    const match = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+    if (!match) continue;
+    env[match[1]] = match[2].trim().replace(/^["']|["']$/g, "");
+  }
+  return env;
+}
+const externalEnv = { ...loadEnv(path.join(parentRootDir, ".env")), ...process.env };
+const videoUrl = externalEnv.QWEN_HACKATHON_VIDEO_URL || "";
+const backupVideoUrl = externalEnv.QWEN_HACKATHON_BACKUP_VIDEO_URL || "";
+const submissionUrl = externalEnv.QWEN_HACKATHON_SUBMISSION_URL || "";
 const outDir = path.join(rootDir, "out", "submission");
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -11,6 +26,9 @@ const fields = {
   tagline: "Qwen Cloud powered inquiry-to-quote autopilot for small businesses.",
   track: "Track 4: Autopilot Agent",
   repositoryUrl: repoUrl,
+  demoVideoUrl: videoUrl,
+  backupVideoUrl,
+  submissionUrl,
   elevatorPitch:
     "ProfitPilot Autopilot turns messy small-business inquiries into quote packets, customer replies, payment checkpoints, and delivery plans using Qwen Cloud.",
   whatItDoes:
@@ -68,6 +86,15 @@ ${fields.track}
 
 ## Repository
 ${fields.repositoryUrl}
+
+## Demo Video URL
+${fields.demoVideoUrl || "To be added after YouTube/Vimeo/Youku upload."}
+
+## Backup Video URL
+${fields.backupVideoUrl || "Optional backup not configured."}
+
+## Devpost Submission URL
+${fields.submissionUrl || "To be added after Devpost submission."}
 
 ## Elevator Pitch
 ${fields.elevatorPitch}
