@@ -23,6 +23,8 @@ test("creates a deterministic quote packet for English inquiries", async () => {
   assert.equal(result.packet.orderDraft.currency, "USD");
   assert.ok(result.packet.customerReply.includes("lightweight"));
   assert.ok(result.packet.deliveryPreview.files.includes("follow-up-status-ledger.csv"));
+  assert.ok(result.packet.toolPlan.some((step) => step.tool === "spreadsheet-export"));
+  assert.ok(result.packet.toolPlan.some((step) => step.humanCheckpoint === "payment-confirmation"));
 });
 
 test("creates a Chinese packet for Chinese inquiries", async () => {
@@ -44,4 +46,19 @@ test("produces judging evidence scorecard", async () => {
   assert.ok(scorecard.total >= 80);
   assert.equal(scorecard.checks.complianceGate, true);
   assert.equal(scorecard.checks.paymentGate, true);
+  assert.equal(scorecard.checks.toolPlan, true);
+  assert.equal(scorecard.checks.bilingualReach, true);
+});
+
+test("keeps tool plan and bilingual scope after live fallback", async () => {
+  const liveLikeConfig = {
+    demoMode: false,
+    qwen: { apiKey: "test-key", model: "test-model", baseUrl: "http://127.0.0.1:9", timeoutMs: 1000 },
+  };
+  const result = await runProfitPilot("Need bilingual quote workflow automation", liveLikeConfig);
+  assert.equal(result.ok, true);
+  assert.equal(result.mode, "deterministic-fallback");
+  assert.ok(Array.isArray(result.packet.quote.scope));
+  assert.ok(result.packet.quote.scope.some((item) => /Chinese and English|bilingual/i.test(item)));
+  assert.ok(Array.isArray(result.packet.toolPlan));
 });
