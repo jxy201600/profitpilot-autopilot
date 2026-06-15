@@ -15,10 +15,11 @@
     "deployment:proof": "node scripts/export-deployment-proof.mjs",
     "submission:bundle": "node scripts/build-submission-bundle.mjs",
     "devpost:fields": "node scripts/export-devpost-fields.mjs",
+    "gallery": "node scripts/build-devpost-gallery.mjs",
     "devpost:helper": "node scripts/build-devpost-helper.mjs",
     "demo:storyboard": "node scripts/build-demo-storyboard.mjs",
     "demo:video": "node scripts/render-demo-video.mjs",
-    "validate": "npm run check && npm test && npm run demo && npm run demo:zh && npm run score && npm run live:smoke && npm run deployment:proof && npm run submission:bundle && npm run devpost:fields && npm run devpost:helper && npm run demo:storyboard && node scripts/validate-submission.mjs",
+    "validate": "npm run check && npm test && npm run demo && npm run demo:zh && npm run score && npm run live:smoke && npm run deployment:proof && npm run submission:bundle && npm run devpost:fields && npm run gallery && npm run devpost:helper && npm run demo:storyboard && node scripts/validate-submission.mjs",
     "start": "node src/server.mjs",
     "test": "node --test test/*.test.mjs",
     "check": "node scripts/check-syntax.mjs"
