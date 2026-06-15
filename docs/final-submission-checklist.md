@@ -5,6 +5,7 @@
 - [ ] Public repository created.
 - [ ] MIT license included.
 - [ ] README has run instructions.
+- [ ] `docs/qwen-cloud-live-setup.md` checked for key region and endpoint.
 - [ ] Qwen Cloud live mode tested with `DASHSCOPE_API_KEY`.
 - [ ] `npm run live:config` passes without printing secrets.
 - [ ] Alibaba Cloud ECS deployment proof captured.
