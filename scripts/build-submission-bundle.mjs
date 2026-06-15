@@ -37,6 +37,11 @@ Use docs/official-submission-requirements.md as the final deliverable checklist.
 
 ${read("docs/technical-depth-evidence.md")}
 
+## Public Evidence
+
+- Qwen Cloud live proof: docs/evidence/qwen-live-proof.md
+- Deployment proof: docs/evidence/deployment-proof.md
+
 ## Demo Video
 
 Use docs/demo-video-script.md.
