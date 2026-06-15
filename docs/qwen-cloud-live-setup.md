@@ -51,6 +51,7 @@ QWEN_MODEL=qwen3.7-plus
 ```bash
 npm run live:config
 npm run live:smoke
+npm run live:proof
 ```
 
 The config check reports only key shape and endpoint metadata. It never prints the key value.
