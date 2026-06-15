@@ -31,6 +31,8 @@ const requiredFiles = [
   "scripts/check-live-config.mjs",
   "scripts/export-live-proof.mjs",
   "scripts/build-devpost-helper.mjs",
+  "scripts/build-devpost-gallery.mjs",
+  "scripts/build-devpost-gallery.py",
   "scripts/render-demo-video.mjs",
   "scripts/render_demo_slides.py",
 ];
@@ -58,6 +60,25 @@ const publicLiveProof = read("docs/evidence/qwen-live-proof.md");
 const helperHtml = exists("out/submission/devpost-submit-helper.html")
   ? read("out/submission/devpost-submit-helper.html")
   : "";
+const galleryFiles = [
+  "out/submission/gallery/01-product-workflow.png",
+  "out/submission/gallery/02-agent-architecture.png",
+  "out/submission/gallery/03-submission-evidence.png",
+];
+function pngMeta(file) {
+  if (!exists(file)) return { exists: false };
+  const fullPath = path.join(rootDir, file);
+  const buffer = fs.readFileSync(fullPath);
+  const pngSignature = buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+  return {
+    exists: true,
+    pngSignature,
+    width: pngSignature ? buffer.readUInt32BE(16) : 0,
+    height: pngSignature ? buffer.readUInt32BE(20) : 0,
+    size: fs.statSync(fullPath).size,
+  };
+}
+const galleryMetas = galleryFiles.map((file) => ({ file, ...pngMeta(file) }));
 const privateToolPattern = new RegExp(`${["co", "dex"].join("")}|${["chat", "gpt"].join("")}|claude\\s+code`, "i");
 const publicScanFiles = [
   ...requiredFiles,
@@ -124,7 +145,7 @@ const checks = [
       /human checkpoint/i.test(winningPlan),
   },
   { name: "ci-validate", ok: /npm run validate/.test(read(".github/workflows/ci.yml")) },
-  { name: "package-scripts", ok: ["check", "test", "demo", "demo:zh", "score", "validate", "live:config", "live:smoke", "live:proof", "demo:video", "start"].every((script) => packageJson.scripts?.[script]) },
+  { name: "package-scripts", ok: ["check", "test", "demo", "demo:zh", "score", "validate", "live:config", "live:smoke", "live:proof", "gallery", "demo:video", "start"].every((script) => packageJson.scripts?.[script]) },
   {
     name: "submission-assets",
     ok: fs.existsSync(path.join(rootDir, "out", "submission", "SUBMISSION_BUNDLE.md")) &&
@@ -134,10 +155,22 @@ const checks = [
       fs.existsSync(path.join(rootDir, "out", "demo-capture", "storyboard.html")),
   },
   {
+    name: "devpost-gallery-assets",
+    ok: galleryMetas.every((item) =>
+      item.exists &&
+      item.pngSignature &&
+      item.width === 1200 &&
+      item.height === 800 &&
+      item.size <= 5 * 1024 * 1024
+    ),
+    detail: galleryMetas,
+  },
+  {
     name: "devpost-helper-content",
     ok: /Basic Fields/.test(helperHtml) &&
       /Project Story/.test(helperHtml) &&
       /Technical Evidence/.test(helperHtml) &&
+      /Image Gallery/.test(helperHtml) &&
       /devpost\.com\/submit-to\/29966/.test(helperHtml) &&
       /qwen-hackathon-finalize/.test(helperHtml) &&
       /data-copy=/.test(helperHtml),
