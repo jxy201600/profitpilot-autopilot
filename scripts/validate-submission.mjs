@@ -22,9 +22,13 @@ const requiredFiles = [
   "docs/deployment-proof-template.md",
   "docs/final-submission-checklist.md",
   "docs/judging-scorecard.md",
+  "docs/official-submission-requirements.md",
   "docs/qwen-cloud-live-setup.md",
   "docs/winning-submission-plan.md",
   "scripts/check-live-config.mjs",
+  "scripts/export-live-proof.mjs",
+  "scripts/render-demo-video.mjs",
+  "scripts/render_demo_slides.py",
 ];
 
 function read(file) {
@@ -43,6 +47,7 @@ const devpost = read("docs/devpost-submission.md");
 const architecture = read("docs/architecture.md");
 const winningPlan = read("docs/winning-submission-plan.md");
 const liveSetup = read("docs/qwen-cloud-live-setup.md");
+const officialRequirements = read("docs/official-submission-requirements.md");
 
 const checks = [
   { name: "required-files", ok: missing.length === 0, detail: missing },
@@ -51,6 +56,14 @@ const checks = [
   { name: "track-4-mentioned", ok: /Track 4/i.test(readme) && /Autopilot Agent/i.test(devpost) },
   { name: "api-key-not-committed", ok: !/DASHSCOPE_API_KEY=.+[A-Za-z0-9_-]{8,}/.test(envExample) },
   { name: "live-mode-configurable", ok: /DASHSCOPE_API_KEY/.test(envExample) && /QWEN_MODEL/.test(envExample) },
+  {
+    name: "official-requirements-mapped",
+    ok: /YouTube, Vimeo, or Youku/.test(officialRequirements) &&
+      /Less than 3 minutes/i.test(officialRequirements) &&
+      /Proof of Alibaba Cloud Deployment/.test(officialRequirements) &&
+      /working project access/i.test(officialRequirements) &&
+      /English translation/i.test(officialRequirements),
+  },
   {
     name: "qwen-live-setup-guide",
     ok: /dashscope-intl\.aliyuncs\.com/.test(liveSetup) &&
@@ -71,7 +84,7 @@ const checks = [
       /human checkpoint/i.test(winningPlan),
   },
   { name: "ci-validate", ok: /npm run validate/.test(read(".github/workflows/ci.yml")) },
-  { name: "package-scripts", ok: ["check", "test", "demo", "demo:zh", "score", "validate", "live:config", "live:smoke", "start"].every((script) => packageJson.scripts?.[script]) },
+  { name: "package-scripts", ok: ["check", "test", "demo", "demo:zh", "score", "validate", "live:config", "live:smoke", "live:proof", "demo:video", "start"].every((script) => packageJson.scripts?.[script]) },
   {
     name: "submission-assets",
     ok: fs.existsSync(path.join(rootDir, "out", "submission", "SUBMISSION_BUNDLE.md")) &&
