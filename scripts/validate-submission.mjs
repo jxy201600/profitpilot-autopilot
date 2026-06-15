@@ -53,6 +53,7 @@ const checks = [
   { name: "architecture-diagram", ok: /mermaid/i.test(architecture) && exists("docs/architecture.svg") },
   { name: "ci-validate", ok: /npm run validate/.test(read(".github/workflows/ci.yml")) },
   { name: "package-scripts", ok: ["check", "test", "demo", "demo:zh", "score", "validate", "live:smoke", "start"].every((script) => packageJson.scripts?.[script]) },
+  { name: "submission-assets", ok: fs.existsSync(path.join(rootDir, "out", "submission", "SUBMISSION_BUNDLE.md")) && fs.existsSync(path.join(rootDir, "out", "deployment-proof", "deployment-proof.md")) },
 ];
 
 const failed = checks.filter((check) => !check.ok);
