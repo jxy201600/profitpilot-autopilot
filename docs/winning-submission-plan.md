@@ -41,7 +41,8 @@ Do not dilute the submission with unrelated features. The demo should show one c
 ### Technical Depth
 
 - OpenAI-compatible Qwen Cloud adapter in `src/qwenClient.mjs`.
-- Structured JSON workflow packet.
+- Structured JSON workflow packet with normalization for model shape drift.
+- Explicit tool plan for spreadsheet export, email draft, payment confirmation, and delivery packaging.
 - CLI, local web demo, tests, scoring script, deployment proof, and submission bundle.
 - Safety gates implemented outside model text.
 
@@ -55,7 +56,8 @@ Do not dilute the submission with unrelated features. The demo should show one c
 
 - Video under 3 minutes.
 - Show a successful allowed workflow, then one restricted request block.
-- Show `npm run validate` and the generated packet.
+- Show `npm run validate`, the generated packet, and the tool plan.
+- Keep docs in a consistent Markdown style: title-case headings, compact tables, fenced commands, and no raw note fragments.
 
 ## Demo Order
 
