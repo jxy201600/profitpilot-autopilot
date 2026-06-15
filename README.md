@@ -51,7 +51,7 @@ Fill:
 ```bash
 DASHSCOPE_API_KEY=...
 PROFITPILOT_DEMO_MODE=false
-QWEN_MODEL=qwen3.7-plus
+QWEN_MODEL=qwen-plus
 ```
 
 The app uses the OpenAI-compatible endpoint:
@@ -66,6 +66,8 @@ Check the live configuration without printing secrets:
 npm run live:config
 npm run live:smoke
 ```
+
+For region matching and final live proof, see [docs/qwen-cloud-live-setup.md](docs/qwen-cloud-live-setup.md).
 
 ## CLI Demo
 
