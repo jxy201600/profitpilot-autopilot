@@ -36,7 +36,8 @@ The live setup checklist is in `docs/qwen-cloud-live-setup.md`.
 2. Paste the sample wholesale inquiry.
 3. Run the agent.
 4. Show compliance status, quote, customer reply, missing inputs, order draft, and human checkpoints.
-5. Explain that live mode swaps deterministic planner for Qwen Cloud API while keeping the same guardrails and output schema.
+5. Show the tool plan with compliance, spreadsheet, email, payment, and delivery packaging boundaries.
+6. Explain that live mode swaps deterministic planner for Qwen Cloud API while keeping the same guardrails and output schema.
 
 Video requirement: upload a public video under 3 minutes to YouTube, Vimeo, or Youku. Keep it English or English-subtitled and do not show secrets.
 
@@ -52,7 +53,8 @@ Devpost fields should include:
 - Track: Track 4, Autopilot Agent.
 - Text description.
 - Testing instructions.
-- Alibaba Cloud deployment proof link.
+- Alibaba Cloud deployment proof link: `docs/evidence/deployment-proof.md`.
+- Qwen Cloud live proof link: `docs/evidence/qwen-live-proof.md`.
 - Optional blog/social post URL.
 
 ## Repository Instructions
