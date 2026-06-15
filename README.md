@@ -27,6 +27,13 @@ npm run demo
 npm run start
 ```
 
+Submission helpers:
+
+```bash
+npm run deployment:proof
+npm run submission:bundle
+```
+
 Then open `http://127.0.0.1:8787`.
 
 ## Qwen Cloud Live Mode
