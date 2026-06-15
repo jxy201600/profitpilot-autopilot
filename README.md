@@ -96,6 +96,11 @@ See [docs/architecture.md](docs/architecture.md) and [docs/architecture.svg](doc
 
 See [docs/technical-depth-evidence.md](docs/technical-depth-evidence.md) for the Qwen Cloud integration, workflow contract, tool boundaries, reliability notes, and verification commands.
 
+Public proof artifacts:
+
+- [Qwen Cloud live proof](docs/evidence/qwen-live-proof.md)
+- [Deployment proof](docs/evidence/deployment-proof.md)
+
 ## Submission Draft
 
 See [docs/devpost-submission.md](docs/devpost-submission.md).
