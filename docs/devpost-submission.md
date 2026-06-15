@@ -16,6 +16,30 @@ ProfitPilot Autopilot turns messy small-business inquiries into quote packets, c
 
 The agent ingests an inquiry, classifies the business context, applies a compliance gate, generates a scoped quote, drafts a customer response, identifies missing inputs, creates an order draft, and lists delivery files that should be released only after payment confirmation.
 
+## Inspiration
+
+Small businesses often receive vague inquiries across email, forms, and chat, then spend too much time turning them into quotes, follow-ups, payment checks, and delivery tasks. The project shows how Qwen Cloud can act as a practical workflow autopilot for this messy revenue operation, not just as a conversational demo.
+
+## How We Built It
+
+We built a Node.js agent with a bounded Qwen Cloud adapter, a strict JSON workflow contract, deterministic fallback mode for repeatable judging, and web and CLI interfaces. The workflow separates model reasoning from operational gates: compliance, quote generation, customer reply drafting, missing-input collection, payment checkpointing, and delivery packaging.
+
+## Challenges We Ran Into
+
+The hardest part was making the agent useful while keeping it safe and reproducible. We added schema normalization for model output drift, explicit restricted-topic handling, payment and delivery checkpoints, timeout controls, live smoke evidence, and a deterministic mode so judges can run the same flow without exposing secrets.
+
+## Accomplishments
+
+The project produces real business artifacts instead of a chat transcript: a quote packet, customer reply, missing-input checklist, order draft, tool plan, payment gate, delivery preview, JSON result, validation report, Qwen Cloud live proof, and Alibaba Cloud deployment proof.
+
+## What We Learned
+
+A strong business autopilot needs clear boundaries as much as intelligence. Qwen Cloud is most valuable when its output is constrained by a contract, checked by deterministic guardrails, and connected to a practical workflow that a small operator can understand and verify.
+
+## What's Next
+
+Next steps are spreadsheet export, email draft handoff, CRM adapters, multilingual templates, richer audit logs, and optional human approval queues for payment, regulated requests, and final delivery release.
+
 ## How Qwen Cloud Is Used
 
 The live mode uses Qwen Cloud's OpenAI-compatible chat completion endpoint with JSON output. Demo mode is deterministic so judges can run the project without secrets.
