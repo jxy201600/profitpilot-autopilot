@@ -18,6 +18,7 @@ const externalEnv = { ...loadEnv(path.join(parentRootDir, ".env")), ...process.e
 const videoUrl = externalEnv.QWEN_HACKATHON_VIDEO_URL || "";
 const backupVideoUrl = externalEnv.QWEN_HACKATHON_BACKUP_VIDEO_URL || "";
 const submissionUrl = externalEnv.QWEN_HACKATHON_SUBMISSION_URL || "";
+const publicEvidenceBase = `${repoUrl.replace(/\/$/, "")}/blob/main`;
 const outDir = path.join(rootDir, "out", "submission");
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -45,8 +46,8 @@ const fields = {
     "Structured JSON workflows",
   ],
   publicEvidence: [
-    "docs/evidence/qwen-live-proof.md",
-    "docs/evidence/deployment-proof.md",
+    `${publicEvidenceBase}/docs/evidence/qwen-live-proof.md`,
+    `${publicEvidenceBase}/docs/evidence/deployment-proof.md`,
   ],
   judgingHighlights: [
     "Autopilot business workflow rather than a generic chatbot",
