@@ -24,8 +24,8 @@ Environment variables:
 
 ```bash
 DASHSCOPE_API_KEY=...
-QWEN_MODEL=qwen-plus
-QWEN_BASE_URL=https://dashscope-intl.aliyuncs.com/compatible-mode/v1
+QWEN_MODEL=qwen3.7-plus
+QWEN_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 ```
 
 The live setup checklist is in `docs/qwen-cloud-live-setup.md`.
