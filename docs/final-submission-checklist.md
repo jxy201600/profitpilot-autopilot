@@ -22,6 +22,8 @@
 - [ ] `npm run live:smoke` passes or safely skips when the key is intentionally absent.
 - [ ] `npm run deployment:proof` generated deployment proof.
 - [ ] `npm run submission:bundle` generated a single Devpost copy source.
+- [ ] `npm run devpost:fields` generated structured Devpost fields.
+- [ ] `npm run demo:storyboard` generated storyboard HTML for recording.
 - [ ] Restricted request demo shows compliance block.
 - [ ] Chinese and English workflow shown in materials.
 
