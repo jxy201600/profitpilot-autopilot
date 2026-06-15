@@ -162,6 +162,7 @@
             item("Quote", `${data.packet.quote.title}<br>${data.packet.quote.price} ${data.packet.quote.currency}<br>${data.packet.quote.deliveryTime}`),
             item("Customer Reply", data.packet.customerReply),
             item("Missing Inputs", list(data.packet.missingInputs)),
+            item("Tool Plan", list((data.packet.toolPlan || []).map((step) => `${step.id}: ${step.tool} -> ${step.status}`))),
             item("Human Checkpoints", list(data.packet.humanCheckpoints)),
             item("JSON", `<pre>${JSON.stringify(data.packet, null, 2)}</pre>`),
           ].join("");
