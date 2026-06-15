@@ -24,6 +24,10 @@ ${repoUrl}
 
 Use docs/qwen-cloud-live-setup.md before recording the final video.
 
+## Official Submission Requirements
+
+Use docs/official-submission-requirements.md as the final deliverable checklist.
+
 ## Architecture
 
 - Markdown: docs/architecture.md
