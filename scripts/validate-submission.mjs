@@ -65,6 +65,7 @@ const galleryFiles = [
   "out/submission/gallery/02-agent-architecture.png",
   "out/submission/gallery/03-submission-evidence.png",
 ];
+const architectureDiagramFile = "out/submission/architecture-diagram.png";
 function pngMeta(file) {
   if (!exists(file)) return { exists: false };
   const fullPath = path.join(rootDir, file);
@@ -79,6 +80,7 @@ function pngMeta(file) {
   };
 }
 const galleryMetas = galleryFiles.map((file) => ({ file, ...pngMeta(file) }));
+const architectureDiagramMeta = { file: architectureDiagramFile, ...pngMeta(architectureDiagramFile) };
 const privateToolPattern = new RegExp(`${["co", "dex"].join("")}|${["chat", "gpt"].join("")}|claude\\s+code`, "i");
 const publicScanFiles = [
   ...requiredFiles,
@@ -164,6 +166,15 @@ const checks = [
       item.size <= 5 * 1024 * 1024
     ),
     detail: galleryMetas,
+  },
+  {
+    name: "devpost-architecture-diagram-asset",
+    ok: architectureDiagramMeta.exists &&
+      architectureDiagramMeta.pngSignature &&
+      architectureDiagramMeta.width === 1200 &&
+      architectureDiagramMeta.height === 800 &&
+      architectureDiagramMeta.size <= 35 * 1024 * 1024,
+    detail: architectureDiagramMeta,
   },
   {
     name: "devpost-helper-content",
