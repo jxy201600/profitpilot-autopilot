@@ -9,6 +9,7 @@
     "demo": "node src/cli.mjs --sample examples/sample-inquiry.en.txt --out out/demo",
     "demo:zh": "node src/cli.mjs --sample examples/sample-inquiry.zh.txt --out out/demo-zh",
     "score": "node scripts/score-demo.mjs out/demo/result.json",
+    "live:config": "node scripts/check-live-config.mjs",
     "live:smoke": "node scripts/qwen-live-smoke.mjs",
     "deployment:proof": "node scripts/export-deployment-proof.mjs",
     "submission:bundle": "node scripts/build-submission-bundle.mjs",
