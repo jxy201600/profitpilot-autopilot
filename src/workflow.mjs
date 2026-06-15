@@ -7,17 +7,61 @@ Your job is to turn a small-business inquiry into a safe quote/order workflow pa
 Return strict JSON only. Do not provide legal, medical, financial, gambling, crypto, exploit, or restricted-industry services.
 The JSON shape must include:
 language, customerSegment, service, urgency, riskLevel, missingInputs, quote, customerReply, operatorChecklist.
-The quote object must include title, price, currency, deliveryTime, scope, assumptions.`;
+The quote object must include title, price, currency, deliveryTime, scope, assumptions.
+scope, assumptions, missingInputs, and operatorChecklist must be JSON arrays of short strings.`;
+
+function toStringValue(value, fallback) {
+  if (typeof value === "string" && value.trim()) return value.trim();
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  return fallback;
+}
+
+function toNumberValue(value, fallback) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function toStringArray(value, fallback) {
+  if (Array.isArray(value)) {
+    const items = value
+      .map((item) => toStringValue(item, ""))
+      .filter(Boolean);
+    return items.length ? items : fallback;
+  }
+  if (typeof value === "string" && value.trim()) {
+    const items = value
+      .split(/\r?\n|;|,|、/)
+      .map((item) => item.replace(/^[-*\d.\s]+/, "").trim())
+      .filter(Boolean);
+    return items.length ? items : [value.trim()];
+  }
+  return fallback;
+}
 
 function fallbackIfInvalid(value, inquiry, compliance) {
   if (!value || typeof value !== "object") return deterministicPlan(inquiry, compliance);
   const base = deterministicPlan(inquiry, compliance);
+  const quote = { ...base.quote, ...(value.quote && typeof value.quote === "object" ? value.quote : {}) };
   return {
     ...base,
     ...value,
-    quote: { ...base.quote, ...(value.quote || {}) },
-    missingInputs: Array.isArray(value.missingInputs) ? value.missingInputs : base.missingInputs,
-    operatorChecklist: Array.isArray(value.operatorChecklist) ? value.operatorChecklist : base.operatorChecklist,
+    language: toStringValue(value.language, base.language),
+    customerSegment: toStringValue(value.customerSegment, base.customerSegment),
+    service: toStringValue(value.service, base.service),
+    urgency: toStringValue(value.urgency, base.urgency),
+    riskLevel: toStringValue(value.riskLevel, base.riskLevel),
+    quote: {
+      ...quote,
+      title: toStringValue(quote.title, base.quote.title),
+      price: toNumberValue(quote.price, base.quote.price),
+      currency: toStringValue(quote.currency, base.quote.currency),
+      deliveryTime: toStringValue(quote.deliveryTime, base.quote.deliveryTime),
+      scope: toStringArray(quote.scope, base.quote.scope),
+      assumptions: toStringArray(quote.assumptions, base.quote.assumptions),
+    },
+    customerReply: toStringValue(value.customerReply, base.customerReply),
+    missingInputs: toStringArray(value.missingInputs, base.missingInputs),
+    operatorChecklist: toStringArray(value.operatorChecklist, base.operatorChecklist),
   };
 }
 
