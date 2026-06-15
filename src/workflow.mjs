@@ -8,7 +8,8 @@ Return strict JSON only. Do not provide legal, medical, financial, gambling, cry
 The JSON shape must include:
 language, customerSegment, service, urgency, riskLevel, missingInputs, quote, customerReply, operatorChecklist.
 The quote object must include title, price, currency, deliveryTime, scope, assumptions.
-scope, assumptions, missingInputs, and operatorChecklist must be JSON arrays of short strings.`;
+scope, assumptions, missingInputs, and operatorChecklist must be JSON arrays of short strings.
+The workflow must preserve human checkpoints for payment confirmation, restricted requests, and external account posting.`;
 
 function toStringValue(value, fallback) {
   if (typeof value === "string" && value.trim()) return value.trim();
@@ -38,6 +39,66 @@ function toStringArray(value, fallback) {
   return fallback;
 }
 
+function wantsBilingualOutput(inquiry, value) {
+  return /bilingual|Chinese|English|EN\/ZH|ZH\/EN|双语|中文|英文/i.test(`${inquiry || ""} ${JSON.stringify(value || {})}`);
+}
+
+function ensureBilingualScope(scope, inquiry, value) {
+  const items = toStringArray(scope, []);
+  if (!wantsBilingualOutput(inquiry, value)) return items.length ? items : toStringArray(scope, []);
+  const joined = items.join(" ");
+  if (/Chinese and English|English and Chinese|EN\/ZH|ZH\/EN|bilingual|双语|中英文/i.test(joined)) return items;
+  return [
+    ...items,
+    "Chinese and English customer response templates",
+  ];
+}
+
+function buildToolPlan({ orderId, compliance, normalized }) {
+  return [
+    {
+      id: "compliance-gate",
+      tool: "policy-check",
+      status: compliance.allowed ? "passed" : "blocked",
+      input: "customer inquiry",
+      output: compliance.policy,
+      humanCheckpoint: compliance.requiresHumanReview ? "restricted-or-ambiguous-request" : "",
+    },
+    {
+      id: "quote-ledger",
+      tool: "spreadsheet-export",
+      status: "prepared",
+      input: "quote packet",
+      output: "follow-up-status-ledger.csv",
+      humanCheckpoint: "",
+    },
+    {
+      id: "customer-reply",
+      tool: "email-draft",
+      status: "prepared",
+      input: normalized.service,
+      output: "customer-reply-templates.md",
+      humanCheckpoint: "external-account-posting",
+    },
+    {
+      id: "payment-check",
+      tool: "merchant-api-or-manual-confirmation",
+      status: "requires-human-confirmation",
+      input: orderId,
+      output: "payment-and-delivery-checklist.md",
+      humanCheckpoint: "payment-confirmation",
+    },
+    {
+      id: "delivery-preview",
+      tool: "artifact-packager",
+      status: "gated",
+      input: "approved order draft",
+      output: "delivery packet preview",
+      humanCheckpoint: "payment-confirmation",
+    },
+  ];
+}
+
 function fallbackIfInvalid(value, inquiry, compliance) {
   if (!value || typeof value !== "object") return deterministicPlan(inquiry, compliance);
   const base = deterministicPlan(inquiry, compliance);
@@ -56,7 +117,7 @@ function fallbackIfInvalid(value, inquiry, compliance) {
       price: toNumberValue(quote.price, base.quote.price),
       currency: toStringValue(quote.currency, base.quote.currency),
       deliveryTime: toStringValue(quote.deliveryTime, base.quote.deliveryTime),
-      scope: toStringArray(quote.scope, base.quote.scope),
+      scope: ensureBilingualScope(quote.scope || base.quote.scope, inquiry, value),
       assumptions: toStringArray(quote.assumptions, base.quote.assumptions),
     },
     customerReply: toStringValue(value.customerReply, base.customerReply),
@@ -101,6 +162,7 @@ export async function runProfitPilot(inquiry, config) {
 
   const normalized = fallbackIfInvalid(plan, inquiry, compliance);
   const orderId = `pp_${Date.now().toString(36)}`;
+  const toolPlan = buildToolPlan({ orderId, compliance, normalized });
   const packet = {
     orderDraft: {
       id: orderId,
@@ -123,6 +185,7 @@ export async function runProfitPilot(inquiry, config) {
       ],
       releaseGate: "Release delivery packet after payment confirmation.",
     },
+    toolPlan,
     humanCheckpoints: [
       "payment-confirmation",
       "restricted-or-ambiguous-request",
