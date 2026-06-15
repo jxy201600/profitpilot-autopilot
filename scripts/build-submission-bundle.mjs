@@ -33,6 +33,10 @@ Use docs/demo-video-script.md.
 
 Use docs/blog-post-draft.md.
 
+## Winning Submission Plan
+
+${read("docs/winning-submission-plan.md")}
+
 ## Required Commands
 
 \`\`\`bash
