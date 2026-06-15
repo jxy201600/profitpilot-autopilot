@@ -24,6 +24,7 @@ const requiredFiles = [
   "docs/judging-scorecard.md",
   "docs/official-submission-requirements.md",
   "docs/qwen-cloud-live-setup.md",
+  "docs/technical-depth-evidence.md",
   "docs/winning-submission-plan.md",
   "scripts/check-live-config.mjs",
   "scripts/export-live-proof.mjs",
@@ -48,6 +49,7 @@ const architecture = read("docs/architecture.md");
 const winningPlan = read("docs/winning-submission-plan.md");
 const liveSetup = read("docs/qwen-cloud-live-setup.md");
 const officialRequirements = read("docs/official-submission-requirements.md");
+const technicalDepth = read("docs/technical-depth-evidence.md");
 
 const checks = [
   { name: "required-files", ok: missing.length === 0, detail: missing },
@@ -74,6 +76,19 @@ const checks = [
   { name: "deterministic-demo", ok: /deterministic demo/i.test(readme) && /deterministic-demo/.test(read("src/workflow.mjs")) },
   { name: "compliance-gate", ok: /restricted/i.test(read("src/compliance.mjs")) && /compliance|safety/i.test(read("docs/demo-video-script.md")) },
   { name: "payment-gate", ok: /payment/i.test(readme) && /payment/i.test(read("src/workflow.mjs")) },
+  {
+    name: "technical-depth-evidence",
+    ok: /Qwen Cloud Integration/.test(technicalDepth) &&
+      /Tool Boundaries/.test(technicalDepth) &&
+      /QWEN_TIMEOUT_MS/.test(technicalDepth) &&
+      /toolPlan/.test(technicalDepth),
+  },
+  {
+    name: "document-formatting",
+    ok: /# Technical Depth Evidence/.test(technicalDepth) &&
+      /\| Packet section \| Purpose \| Guardrail \|/.test(technicalDepth) &&
+      /```bash/.test(technicalDepth),
+  },
   { name: "deployment-proof", ok: /Alibaba Cloud/i.test(read("docs/deployment-proof-template.md")) },
   { name: "architecture-diagram", ok: /mermaid/i.test(architecture) && exists("docs/architecture.svg") },
   {
