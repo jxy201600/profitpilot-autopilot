@@ -1,0 +1,41 @@
+# Final Submission Checklist
+
+## Required
+
+- [ ] Public repository created.
+- [ ] MIT license included.
+- [ ] README has run instructions.
+- [ ] Qwen Cloud live mode tested with `DASHSCOPE_API_KEY`.
+- [ ] Alibaba Cloud ECS deployment proof captured.
+- [ ] Architecture diagram included.
+- [ ] Demo video under 3 minutes recorded and public.
+- [ ] Devpost project page submitted before July 9, 2026, 2:00 PM Pacific Time.
+
+## Quality
+
+- [ ] `npm run check` passes.
+- [ ] `npm test` passes.
+- [ ] `npm run demo` passes.
+- [ ] `npm run demo:zh` passes.
+- [ ] `npm run score` shows a strong scorecard.
+- [ ] `npm run validate` passes.
+- [ ] `npm run live:smoke` passes or safely skips when the key is intentionally absent.
+- [ ] Restricted request demo shows compliance block.
+- [ ] Chinese and English workflow shown in materials.
+
+## Prize Strategy
+
+- [ ] Submit to Track 4: Autopilot Agent.
+- [ ] Submit or publish the blog post draft for the Blog Post Award.
+- [ ] Highlight real business workflow value.
+- [ ] Highlight Qwen Cloud API usage.
+- [ ] Highlight Alibaba Cloud deployment.
+- [ ] Highlight safety gates and human checkpoints.
+
+## Human Actions
+
+- [ ] Create or confirm Qwen Cloud account and API key.
+- [ ] Create public code repository.
+- [ ] Record/upload demo video.
+- [ ] Submit Devpost form.
+- [ ] After Devpost submission, set `QWEN_HACKATHON_SUBMISSION_URL` for monitoring.
