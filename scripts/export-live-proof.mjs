@@ -4,7 +4,9 @@ import { rootDir, getConfig } from "../src/config.mjs";
 import { callQwenJson } from "../src/qwenClient.mjs";
 
 const outDir = path.join(rootDir, "out", "live-proof");
+const publicEvidenceDir = path.join(rootDir, "docs", "evidence");
 fs.mkdirSync(outDir, { recursive: true });
+fs.mkdirSync(publicEvidenceDir, { recursive: true });
 
 function keyIssues(apiKey) {
   const issues = [];
@@ -69,6 +71,7 @@ if (issues.length) {
 
 const jsonPath = path.join(outDir, "qwen-live-proof.json");
 const mdPath = path.join(outDir, "qwen-live-proof.md");
+const publicMdPath = path.join(publicEvidenceDir, "qwen-live-proof.md");
 fs.writeFileSync(jsonPath, JSON.stringify(proof, null, 2));
 fs.writeFileSync(mdPath, `# Qwen Cloud Live Proof
 
@@ -81,6 +84,21 @@ fs.writeFileSync(mdPath, `# Qwen Cloud Live Proof
 
 ${proof.ok ? "Live Qwen Cloud smoke test passed." : `Live proof is not ready: ${proof.reason || "unknown"}${proof.issues?.length ? `\n\nIssues:\n${proof.issues.map((issue) => `- ${issue}`).join("\n")}` : ""}`}
 `);
+fs.writeFileSync(publicMdPath, `# Qwen Cloud Live Proof
 
-process.stdout.write(`${JSON.stringify({ ok: proof.ok, jsonPath, mdPath, reason: proof.reason || "", provider: proof.provider || "" }, null, 2)}\n`);
+This public proof records a live Qwen Cloud smoke test without exposing the API key.
+
+| Field | Value |
+| --- | --- |
+| Checked at | ${proof.checkedAt} |
+| OK | ${proof.ok ? "yes" : "no"} |
+| Provider | ${proof.provider || "not confirmed"} |
+| Model | ${proof.config.model} |
+| Endpoint host | ${proof.config.baseUrlHost || "not configured"} |
+| Demo mode | ${proof.config.demoMode ? "true" : "false"} |
+
+${proof.ok ? "Live Qwen Cloud smoke test passed." : `Live proof is not ready: ${proof.reason || "unknown"}`}
+`);
+
+process.stdout.write(`${JSON.stringify({ ok: proof.ok, jsonPath, mdPath, publicMdPath, reason: proof.reason || "", provider: proof.provider || "" }, null, 2)}\n`);
 if (!proof.ok) process.exitCode = 1;
