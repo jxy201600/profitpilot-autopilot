@@ -85,6 +85,10 @@ See [docs/architecture.md](docs/architecture.md) and [docs/architecture.svg](doc
 
 See [docs/devpost-submission.md](docs/devpost-submission.md).
 
+## Prize Strategy
+
+See [docs/winning-submission-plan.md](docs/winning-submission-plan.md).
+
 ## Publishing
 
 See [docs/repository-publish-guide.md](docs/repository-publish-guide.md).
