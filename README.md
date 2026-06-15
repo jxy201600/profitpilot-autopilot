@@ -92,6 +92,10 @@ Generated packets are written to `out/`.
 
 See [docs/architecture.md](docs/architecture.md) and [docs/architecture.svg](docs/architecture.svg).
 
+## Technical Evidence
+
+See [docs/technical-depth-evidence.md](docs/technical-depth-evidence.md) for the Qwen Cloud integration, workflow contract, tool boundaries, reliability notes, and verification commands.
+
 ## Submission Draft
 
 See [docs/devpost-submission.md](docs/devpost-submission.md).
