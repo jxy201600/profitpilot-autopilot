@@ -20,6 +20,10 @@ ${read("docs/devpost-submission.md")}
 
 ${repoUrl}
 
+## Qwen Cloud Live Setup
+
+Use docs/qwen-cloud-live-setup.md before recording the final video.
+
 ## Architecture
 
 - Markdown: docs/architecture.md
