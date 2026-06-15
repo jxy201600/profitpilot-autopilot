@@ -60,6 +60,13 @@ The app uses the OpenAI-compatible endpoint:
 https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions
 ```
 
+Check the live configuration without printing secrets:
+
+```bash
+npm run live:config
+npm run live:smoke
+```
+
 ## CLI Demo
 
 ```bash
