@@ -26,6 +26,10 @@ const fields = {
     "OpenAI-compatible Chat Completions",
     "Structured JSON workflows",
   ],
+  publicEvidence: [
+    "docs/evidence/qwen-live-proof.md",
+    "docs/evidence/deployment-proof.md",
+  ],
   judgingHighlights: [
     "Autopilot business workflow rather than a generic chatbot",
     "Compliance gate before quote generation",
@@ -79,6 +83,9 @@ ${fields.technicalDepth}
 
 ## Built With
 ${fields.builtWith.map((item) => `- ${item}`).join("\n")}
+
+## Public Evidence
+${fields.publicEvidence.map((item) => `- ${item}`).join("\n")}
 
 ## Judging Highlights
 ${fields.judgingHighlights.map((item) => `- ${item}`).join("\n")}
