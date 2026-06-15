@@ -6,6 +6,7 @@
 - [ ] MIT license included.
 - [ ] README has run instructions.
 - [ ] Qwen Cloud live mode tested with `DASHSCOPE_API_KEY`.
+- [ ] `npm run live:config` passes without printing secrets.
 - [ ] Alibaba Cloud ECS deployment proof captured.
 - [ ] Architecture diagram included.
 - [ ] Demo video under 3 minutes recorded and public.
