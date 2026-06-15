@@ -1,0 +1,21 @@
+{
+  "name": "profitpilot-autopilot",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Qwen Cloud Autopilot Agent for small-business inquiry-to-quote workflows.",
+  "license": "MIT",
+  "scripts": {
+    "demo": "node src/cli.mjs --sample examples/sample-inquiry.en.txt --out out/demo",
+    "demo:zh": "node src/cli.mjs --sample examples/sample-inquiry.zh.txt --out out/demo-zh",
+    "score": "node scripts/score-demo.mjs out/demo/result.json",
+    "live:smoke": "node scripts/qwen-live-smoke.mjs",
+    "validate": "npm run check && npm test && npm run demo && npm run demo:zh && npm run score && npm run live:smoke && node scripts/validate-submission.mjs",
+    "start": "node src/server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "check": "node scripts/check-syntax.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
