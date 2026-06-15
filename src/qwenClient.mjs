@@ -15,12 +15,14 @@ function extractJson(text) {
 export async function callQwenJson(config, { system, user, temperature = 0.2 } = {}) {
   if (!config.qwen.apiKey) throw new Error("qwen-api-key-missing");
   const endpoint = `${config.qwen.baseUrl.replace(/\/$/, "")}/chat/completions`;
+  const timeoutMs = Number.isFinite(Number(config.qwen.timeoutMs)) ? Number(config.qwen.timeoutMs) : 45000;
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${config.qwen.apiKey}`,
       "Content-Type": "application/json",
     },
+    signal: AbortSignal.timeout(timeoutMs),
     body: JSON.stringify({
       model: config.qwen.model,
       temperature,
