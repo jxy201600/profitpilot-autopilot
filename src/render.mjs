@@ -50,6 +50,10 @@ ${packet.deliveryPreview.files.map((item) => `- ${item}`).join("\n")}
 
 Release gate: ${packet.deliveryPreview.releaseGate}
 
+## Tool Plan
+
+${packet.toolPlan.map((step) => `- ${step.id}: ${step.tool} -> ${step.status}${step.humanCheckpoint ? ` (checkpoint: ${step.humanCheckpoint})` : ""}`).join("\n")}
+
 ## Human Checkpoints
 
 ${packet.humanCheckpoints.map((item) => `- ${item}`).join("\n")}
