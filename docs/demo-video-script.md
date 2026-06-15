@@ -2,6 +2,14 @@
 
 Target length: 2 minutes 30 seconds.
 
+Automated render option:
+
+```bash
+npm run demo:video
+```
+
+This creates `out/demo-video/profitpilot-autopilot-demo.mp4`. The rendered video is caption-first and does not include secrets.
+
 ## 0:00-0:20 Intro
 
 "This is ProfitPilot Autopilot, a Qwen Cloud powered agent for small-business inquiry-to-quote workflows. It is built for the Autopilot Agent track."
