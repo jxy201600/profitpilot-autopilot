@@ -50,6 +50,14 @@ const winningPlan = read("docs/winning-submission-plan.md");
 const liveSetup = read("docs/qwen-cloud-live-setup.md");
 const officialRequirements = read("docs/official-submission-requirements.md");
 const technicalDepth = read("docs/technical-depth-evidence.md");
+const privateToolPattern = new RegExp(`${["co", "dex"].join("")}|${["chat", "gpt"].join("")}|claude\\s+code`, "i");
+const publicScanFiles = [
+  ...requiredFiles,
+  "out/submission/SUBMISSION_BUNDLE.md",
+  "out/submission/devpost-fields.md",
+  "out/submission/devpost-fields.json",
+].filter(exists);
+const privateToolHits = publicScanFiles.filter((file) => privateToolPattern.test(read(file)));
 
 const checks = [
   { name: "required-files", ok: missing.length === 0, detail: missing },
@@ -89,6 +97,7 @@ const checks = [
       /\| Packet section \| Purpose \| Guardrail \|/.test(technicalDepth) &&
       /```bash/.test(technicalDepth),
   },
+  { name: "private-tooling-absent", ok: privateToolHits.length === 0, detail: privateToolHits },
   { name: "deployment-proof", ok: /Alibaba Cloud/i.test(read("docs/deployment-proof-template.md")) },
   { name: "architecture-diagram", ok: /mermaid/i.test(architecture) && exists("docs/architecture.svg") },
   {
