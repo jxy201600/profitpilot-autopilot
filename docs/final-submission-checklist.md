@@ -7,6 +7,7 @@
 - [ ] README has run instructions.
 - [ ] `docs/official-submission-requirements.md` reviewed against the current Devpost pages.
 - [ ] `docs/qwen-cloud-live-setup.md` checked for key region and endpoint.
+- [ ] `docs/technical-depth-evidence.md` reviewed for judge-facing technical depth.
 - [ ] Qwen Cloud live mode tested with `DASHSCOPE_API_KEY`.
 - [ ] `npm run live:config` passes without printing secrets.
 - [ ] `npm run live:proof` generated `out/live-proof/qwen-live-proof.md`.
@@ -34,6 +35,7 @@
 - [ ] `npm run demo:storyboard` generated storyboard HTML for recording.
 - [ ] Restricted request demo shows compliance block.
 - [ ] Chinese and English workflow shown in materials.
+- [ ] Markdown formatting is consistent: headings, tables, commands, and file paths are cleanly formatted.
 
 ## Prize Strategy
 
