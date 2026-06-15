@@ -10,7 +10,9 @@
     "demo:zh": "node src/cli.mjs --sample examples/sample-inquiry.zh.txt --out out/demo-zh",
     "score": "node scripts/score-demo.mjs out/demo/result.json",
     "live:smoke": "node scripts/qwen-live-smoke.mjs",
-    "validate": "npm run check && npm test && npm run demo && npm run demo:zh && npm run score && npm run live:smoke && node scripts/validate-submission.mjs",
+    "deployment:proof": "node scripts/export-deployment-proof.mjs",
+    "submission:bundle": "node scripts/build-submission-bundle.mjs",
+    "validate": "npm run check && npm test && npm run demo && npm run demo:zh && npm run score && npm run live:smoke && npm run deployment:proof && npm run submission:bundle && node scripts/validate-submission.mjs",
     "start": "node src/server.mjs",
     "test": "node --test test/*.test.mjs",
     "check": "node scripts/check-syntax.mjs"
