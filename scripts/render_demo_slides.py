@@ -75,7 +75,7 @@ def text(draw, xy, content, fill="white", fnt=FONT_BODY, max_width=900, line_gap
 def bullets(draw, xy, items, fill="white", fnt=FONT_BODY, max_width=980):
     x, y = xy
     for item in items[:7]:
-        y = text(draw, (x, y), "• " + str(item), fill=fill, fnt=fnt, max_width=max_width, max_lines=2) + 10
+        y = text(draw, (x, y), "- " + str(item), fill=fill, fnt=fnt, max_width=max_width, max_lines=2) + 10
     return y
 
 
@@ -83,10 +83,10 @@ def base(title, subtitle):
     img = gradient()
     draw = ImageDraw.Draw(img)
     rounded(draw, (70, 58, 470, 96), 20, fill=(22, 164, 184), outline=None)
-    draw.text((88, 69), "Qwen Cloud Hackathon · Track 4", fill="white", font=FONT_SMALL_BOLD)
+    draw.text((88, 69), "Qwen Cloud Hackathon - Track 4", fill="white", font=FONT_SMALL_BOLD)
     text(draw, (70, 124), title, fill="white", fnt=FONT_TITLE, max_width=1060, max_lines=2)
     text(draw, (74, 242), subtitle, fill=(222, 235, 250), fnt=FONT_BODY, max_width=1060, max_lines=3)
-    draw.text((70, 672), "ProfitPilot Autopilot · live proof and deterministic fallback · no secrets shown", fill=(190, 205, 226), font=FONT_SMALL_BOLD)
+    draw.text((70, 672), "ProfitPilot Autopilot - live proof and deterministic fallback - no secrets shown", fill=(190, 205, 226), font=FONT_SMALL_BOLD)
     return img, draw
 
 
@@ -120,6 +120,22 @@ def slide_workflow(data):
         col_x = x + (idx // 4) * 560
         panel(draw, (col_x, y, col_x + 460, y + 48))
         draw.text((col_x + 22, y + 12), f"{idx + 1}. {step}", fill=(23, 32, 51), font=FONT_SMALL_BOLD)
+    return img
+
+
+def slide_toolplan(data):
+    packet = data["result"]["packet"]
+    steps = packet.get("toolPlan", [])
+    img, draw = base("Tool Boundaries", "The agent prepares external work while payment, posting, and restricted topics stay gated.")
+    for idx, step in enumerate(steps[:5]):
+        y = 305 + idx * 68
+        panel(draw, (96, y, 1184, y + 58))
+        label = f'{step.get("id", "step")}: {step.get("tool", "tool")}'
+        status = step.get("status", "prepared")
+        checkpoint = step.get("humanCheckpoint") or "none"
+        draw.text((122, y + 9), label[:80], fill=(23, 32, 51), font=FONT_SMALL_BOLD)
+        draw.text((122, y + 34), f"status: {status}"[:40], fill=(75, 86, 110), font=FONT_SMALL)
+        draw.text((520, y + 34), f"checkpoint: {checkpoint}"[:55], fill=(75, 86, 110), font=FONT_SMALL)
     return img
 
 
@@ -184,6 +200,7 @@ SLIDES = {
     "intro": slide_intro,
     "problem": slide_problem,
     "workflow": slide_workflow,
+    "toolplan": slide_toolplan,
     "quote": slide_quote,
     "reply": slide_reply,
     "safety": slide_safety,
