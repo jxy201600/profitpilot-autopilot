@@ -16,6 +16,7 @@
 - [ ] Public deployment proof generated at `docs/evidence/deployment-proof.md`.
 - [ ] Architecture diagram included.
 - [ ] Demo video is under 3 minutes, English or English-subtitled, free of secrets, and publicly uploaded to YouTube, Vimeo, or Youku.
+- [ ] Silent video choice reviewed: audio is not required by the Official Rules, and visible video text is English.
 - [ ] `npm run demo:video` generated `out/demo-video/profitpilot-autopilot-demo.mp4`, or an equivalent public recording was uploaded.
 - [ ] Devpost project page submitted before July 9, 2026, 2:00 PM Pacific Time.
 - [ ] Working project access provided through website, functioning demo, or test build.
