@@ -16,7 +16,9 @@ const fields = {
   whatItDoes:
     "The agent ingests an inquiry, classifies the business context, applies a compliance gate, generates a scoped quote, drafts a customer response, identifies missing inputs, creates an order draft, and lists delivery files that should be released only after payment confirmation.",
   howItUsesQwenCloud:
-    "Live mode uses Qwen Cloud's OpenAI-compatible chat completion endpoint with JSON output. The deterministic fallback keeps tests and demos reliable without secrets while preserving the same schema and workflow gates.",
+    "Live mode uses Qwen Cloud's OpenAI-compatible chat completion endpoint with JSON output. The deterministic fallback keeps tests and demos reliable without secrets while preserving the same schema, normalization layer, tool plan, and workflow gates.",
+  technicalDepth:
+    "The implementation includes a bounded Qwen Cloud adapter, structured JSON contract, output normalization, explicit tool-plan boundaries, compliance gates, payment and external-posting checkpoints, CLI and web demos, unit tests, live smoke proof, deployment proof, and generated submission assets.",
   builtWith: [
     "Qwen Cloud",
     "Alibaba Cloud ECS",
@@ -71,6 +73,9 @@ ${fields.whatItDoes}
 
 ## How It Uses Qwen Cloud
 ${fields.howItUsesQwenCloud}
+
+## Technical Depth
+${fields.technicalDepth}
 
 ## Built With
 ${fields.builtWith.map((item) => `- ${item}`).join("\n")}
