@@ -47,6 +47,8 @@ For this project, use these proof targets:
 - Code/API proof: `src/qwenClient.mjs` demonstrates Qwen Cloud OpenAI-compatible API usage.
 - Deployment proof generator: `scripts/export-deployment-proof.mjs`.
 - Generated proof artifact: `out/deployment-proof/deployment-proof.md`.
+- Public deployment proof artifact: `docs/evidence/deployment-proof.md`.
+- Public Qwen live proof artifact: `docs/evidence/qwen-live-proof.md`.
 - Optional short deployment proof video: separate from the main demo if recorded.
 
 ## Testing Access
@@ -86,3 +88,5 @@ For this project, use these proof targets:
 - Architecture diagram: `docs/architecture.svg`.
 - Live proof: `out/live-proof/qwen-live-proof.md`.
 - Deployment proof: `out/deployment-proof/deployment-proof.md`.
+- Public live proof: `docs/evidence/qwen-live-proof.md`.
+- Public deployment proof: `docs/evidence/deployment-proof.md`.
