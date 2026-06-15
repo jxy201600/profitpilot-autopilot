@@ -11,7 +11,9 @@
 - [ ] Qwen Cloud live mode tested with `DASHSCOPE_API_KEY`.
 - [ ] `npm run live:config` passes without printing secrets.
 - [ ] `npm run live:proof` generated `out/live-proof/qwen-live-proof.md`.
+- [ ] Public Qwen proof generated at `docs/evidence/qwen-live-proof.md`.
 - [ ] Alibaba Cloud ECS deployment proof captured.
+- [ ] Public deployment proof generated at `docs/evidence/deployment-proof.md`.
 - [ ] Architecture diagram included.
 - [ ] Demo video is under 3 minutes, English or English-subtitled, free of secrets, and publicly uploaded to YouTube, Vimeo, or Youku.
 - [ ] `npm run demo:video` generated `out/demo-video/profitpilot-autopilot-demo.mp4`, or an equivalent public recording was uploaded.
