@@ -32,12 +32,21 @@ Show:
 - quote amount and currency,
 - customer reply,
 - missing inputs,
+- tool plan and external-system checkpoints,
 - human checkpoints,
 - JSON packet.
 
 Narration:
 
 "The output is not a chat answer. It is a structured workflow packet that can be passed to order creation, payment confirmation, and delivery preparation."
+
+Also show the tool plan:
+
+- compliance gate,
+- spreadsheet export,
+- email draft,
+- payment confirmation,
+- delivery packet packaging.
 
 ## 1:30-1:55 Safety
 
