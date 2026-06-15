@@ -13,8 +13,9 @@ export function scoreSubmissionEvidence(result) {
     structuredWorkflow: Boolean(packet.orderDraft && packet.quote && packet.deliveryPreview),
     complianceGate: Boolean(result?.compliance?.policy),
     humanCheckpoints: Array.isArray(packet.humanCheckpoints) && packet.humanCheckpoints.length >= 3,
+    toolPlan: Array.isArray(packet.toolPlan) && packet.toolPlan.length >= 4,
     businessValue: /quote|order|workflow|报价|订单/i.test(`${plan.service || ""} ${packet.quote?.title || ""}`),
-    bilingualReach: /Chinese|English|中文|英文/i.test(JSON.stringify(packet.quote?.scope || [])),
+    bilingualReach: /Chinese|English|bilingual|EN\/ZH|ZH\/EN|中文|英文|双语/i.test(JSON.stringify(packet.quote?.scope || [])),
     deliveryArtifacts: Array.isArray(packet.deliveryPreview?.files) && packet.deliveryPreview.files.length >= 3,
     paymentGate: /payment/i.test(`${packet.deliveryPreview?.releaseGate || ""} ${packet.orderDraft?.paymentStatus || ""}`),
   };
@@ -26,6 +27,7 @@ export function scoreSubmissionEvidence(result) {
   const technicalDepth = 8 +
     (checks.qwenCloudReady ? 6 : 0) +
     (checks.structuredWorkflow ? 6 : 0) +
+    (checks.toolPlan ? 4 : 0) +
     (checks.deliveryArtifacts ? 5 : 0) +
     (checks.paymentGate ? 5 : 0);
   const impact = 7 +
@@ -54,6 +56,7 @@ export function scoreSubmissionEvidence(result) {
       checks.bilingualReach ? "" : "Show Chinese and English output in the demo.",
       checks.paymentGate ? "" : "Make the payment confirmation gate visible in the UI and README.",
       checks.deliveryArtifacts ? "" : "Show generated delivery artifacts in the video.",
+      checks.toolPlan ? "" : "Show external tool boundaries and prepared tool steps.",
     ].filter(Boolean),
   };
 }
