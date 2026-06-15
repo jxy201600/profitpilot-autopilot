@@ -22,6 +22,7 @@ const requiredFiles = [
   "docs/deployment-proof-template.md",
   "docs/final-submission-checklist.md",
   "docs/judging-scorecard.md",
+  "docs/winning-submission-plan.md",
 ];
 
 function read(file) {
@@ -38,6 +39,7 @@ const readme = read("README.md");
 const envExample = read(".env.example");
 const devpost = read("docs/devpost-submission.md");
 const architecture = read("docs/architecture.md");
+const winningPlan = read("docs/winning-submission-plan.md");
 
 const checks = [
   { name: "required-files", ok: missing.length === 0, detail: missing },
@@ -51,6 +53,13 @@ const checks = [
   { name: "payment-gate", ok: /payment/i.test(readme) && /payment/i.test(read("src/workflow.mjs")) },
   { name: "deployment-proof", ok: /Alibaba Cloud/i.test(read("docs/deployment-proof-template.md")) },
   { name: "architecture-diagram", ok: /mermaid/i.test(architecture) && exists("docs/architecture.svg") },
+  {
+    name: "winning-plan",
+    ok: /Track 4/i.test(winningPlan) &&
+      /Autopilot Agent/i.test(winningPlan) &&
+      /Blog Post Award/i.test(winningPlan) &&
+      /human checkpoint/i.test(winningPlan),
+  },
   { name: "ci-validate", ok: /npm run validate/.test(read(".github/workflows/ci.yml")) },
   { name: "package-scripts", ok: ["check", "test", "demo", "demo:zh", "score", "validate", "live:smoke", "start"].every((script) => packageJson.scripts?.[script]) },
   {
