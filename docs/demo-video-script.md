@@ -10,6 +10,8 @@ npm run demo:video
 
 This creates `out/demo-video/profitpilot-autopilot-demo.mp4`. The rendered video is caption-first and does not include secrets.
 
+The generated video is intentionally silent. The Official Rules require working footage under 3 minutes on YouTube, Vimeo, or Youku; they do not require audio or narration. Extra subtitles are not needed because the visible slide text is already in English.
+
 ## 0:00-0:20 Intro
 
 "This is ProfitPilot Autopilot, a Qwen Cloud powered agent for small-business inquiry-to-quote workflows. It is built for the Autopilot Agent track."
