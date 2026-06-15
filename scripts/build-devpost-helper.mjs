@@ -6,6 +6,11 @@ const outDir = path.join(rootDir, "out", "submission");
 const fieldsPath = path.join(outDir, "devpost-fields.json");
 const helperPath = path.join(outDir, "devpost-submit-helper.html");
 const officialSubmitUrl = "https://devpost.com/submit-to/29966-global-ai-hackathon-series-with-qwen-cloud/manage/submissions";
+const galleryImages = [
+  "gallery/01-product-workflow.png",
+  "gallery/02-agent-architecture.png",
+  "gallery/03-submission-evidence.png",
+];
 
 if (!fs.existsSync(fieldsPath)) {
   throw new Error("Run npm run devpost:fields before npm run devpost:helper");
@@ -304,6 +309,12 @@ const html = `<!doctype html>
         <div>
           <h2>Official Page</h2>
           <a class="button" href="${officialSubmitUrl}" target="_blank" rel="noreferrer">Open Devpost</a>
+        </div>
+        <div>
+          <h2>Image Gallery</h2>
+          <ol class="steps">
+            ${galleryImages.map((item, index) => `<li><span class="num">${index + 1}</span><span><a href="${item}" target="_blank" rel="noreferrer">${escapeHtml(item)}</a></span></li>`).join("\n")}
+          </ol>
         </div>
         <div class="note">
           Video: the submitted demo is 75 seconds, public on YouTube, and uses English visible text. Official rules do not require narration.
