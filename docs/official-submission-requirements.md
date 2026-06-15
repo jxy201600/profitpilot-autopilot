@@ -38,6 +38,8 @@ If the Overview and Official Rules disagree, follow the Official Rules.
 - Keep all visible material in English, or provide English translation/subtitles.
 - Do not show secrets, `.env`, API keys, private accounts, or personal payment data.
 
+Current project choice: the generated demo is a silent, caption-first video with English on-screen text. The Official Rules do not require audio, narration, or subtitles when the visible video material is already English.
+
 ## Alibaba Cloud Deployment Proof
 
 The Official Rules require proof that the backend is running on Alibaba Cloud and a link to a code file in the repository demonstrating use of Alibaba Cloud services and APIs.
