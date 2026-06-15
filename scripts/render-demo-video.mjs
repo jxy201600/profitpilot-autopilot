@@ -17,9 +17,12 @@ function firstExisting(candidates) {
 }
 
 function findPython() {
+  const bundledPython = process.env.USERPROFILE
+    ? path.join(process.env.USERPROFILE, ".cache", "codex-runtimes", "codex-primary-runtime", "dependencies", "python", "python.exe")
+    : "";
   return firstExisting([
     process.env.PYTHON_PATH,
-    "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    bundledPython,
     "python.exe",
     "python",
   ]);
@@ -33,8 +36,20 @@ function findFfmpeg() {
   } catch {
     // Optional dependency for local rendering only.
   }
+  const workspaceTool = path.resolve(
+    rootDir,
+    "..",
+    "..",
+    "..",
+    ".tools",
+    "ffmpeg",
+    "node_modules",
+    "@ffmpeg-installer",
+    "win32-x64",
+    "ffmpeg.exe",
+  );
   return firstExisting([
-    "D:\\zhuanqian\\.tools\\ffmpeg\\node_modules\\@ffmpeg-installer\\win32-x64\\ffmpeg.exe",
+    workspaceTool,
     "ffmpeg.exe",
     "ffmpeg",
   ]);
@@ -86,6 +101,7 @@ async function main() {
       { id: "intro", duration: 7 },
       { id: "problem", duration: 8 },
       { id: "workflow", duration: 9 },
+      { id: "toolplan", duration: 8 },
       { id: "quote", duration: 10 },
       { id: "reply", duration: 10 },
       { id: "safety", duration: 8 },
